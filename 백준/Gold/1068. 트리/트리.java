@@ -1,53 +1,56 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-    
+
     static boolean[] visited;
     static ArrayList<Integer>[] tree;
-    static int answer = 0;
-    static int deleteNode = 0;
+    static int result;
+    static int deleteNode;
 
     public static void main(String[] args) throws IOException {
-
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        tree = new ArrayList[N];
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
         visited = new boolean[N];
-        int root = 0;
-        for (int i = 0; i < N; i++)
-            tree[i] = new ArrayList<>();
-
+        tree = new ArrayList[N];
         for (int i = 0; i < N; i++) {
-            int p = sc.nextInt();
-            if (p != -1) {
-                tree[i].add(p);
-                tree[p].add(i);
+            tree[i] = new ArrayList<>();
+        }
+
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int root = 0;
+        for(int i = 0; i < N; i++) {
+            int n = Integer.parseInt(st.nextToken());
+            if(n != -1) {
+                tree[i].add(n);
+                tree[n].add(i);
             } else {
                 root = i;
             }
         }
-        deleteNode = sc.nextInt();
-        if (deleteNode == root)
+
+        deleteNode = Integer.parseInt(br.readLine());
+        if(deleteNode == root)
             System.out.println(0);
         else {
             DFS(root);
-            System.out.println(answer);
+            System.out.println(result);
         }
     }
 
     private static void DFS(int number) {
         visited[number] = true;
         int cNode = 0;
-        for (int i : tree[number]) {
-            if (!visited[i] && i != deleteNode) {
+        for(int i : tree[number]) {
+            if(!visited[i] && i != deleteNode) {
                 cNode++;
                 DFS(i);
             }
         }
-        if (cNode == 0)
-            answer++;
+        if(cNode == 0)
+            result++;
     }
-
 }
