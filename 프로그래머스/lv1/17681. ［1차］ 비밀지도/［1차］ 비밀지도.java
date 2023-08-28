@@ -2,37 +2,18 @@ import static java.lang.Integer.toBinaryString;
 
 class Solution {
     public String[] solution(int n, int[] arr1, int[] arr2) {
-        String[] answer = new String[n];
-
-        for(int i = 0; i < n; i++) {
-            String row = "";
-            String arr1ToString = toBinaryString(arr1[i]);
-            String arr2ToString = toBinaryString(arr2[i]);
-
-            String addZeroArr1 = addZero(arr1ToString, n);
-            String addZeroArr2 = addZero(arr2ToString, n);
-
-            for(int j = 0; j < n; j++) {
-                if(addZeroArr1.charAt(j) == '1' || addZeroArr2.charAt(j) == '1') {
-                    row += "#";
-                }else {
-                    row += " ";
-                }
-            }
-            answer[i] = row;
+        String[] result = new String[n];
+        for (int i = 0; i < n; i++) {
+            result[i] = Integer.toBinaryString(arr1[i] | arr2[i]);
         }
 
-        return answer;
-    }
-
-    static String addZero(String arr, int n) {
-        if(arr.length() != n) {
-            String zero = "";
-            for(int j = 0; j < n - arr.length(); j++) {
-                zero += "0";
-            }
-            arr = zero + arr;
+        for (int i = 0; i < n; i++) {
+            result[i] = String.format("%16s", result[i]);
+            result[i] = result[i].substring(result[i].length() - n);
+            result[i] = result[i].replaceAll("1", "#");
+            result[i] = result[i].replaceAll("0", " ");
         }
-        return arr;
+
+        return result;
     }
 }
