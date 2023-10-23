@@ -1,31 +1,19 @@
 import java.util.*;
 
 class Solution {
-    ArrayList<int[]> seq;
     public int[][] solution(int n) {
-        seq = new ArrayList<>();
-
-        hanoi(n, 1, 3, 2);
-
-        int[][] answer = new int[seq.size()][2];
-        for (int i = 0; i < answer.length; i++) {
-            int[] cmd = seq.get(i);
-            answer[i][0] = cmd[0];
-            answer[i][1] = cmd[1];
+            return hanoi(n, 1, 3).toArray(new int[0][]);
         }
+        
+        private List<int[]> hanoi(int n, int from, int to) {
+            if (n == 1) return List.of(new int[]{from, to});
 
-        return answer;
-    }
+            int empty = 6 - from - to;
 
-    private void hanoi(int n, int from, int to, int via) {
-        int[] move = {from, to};
-
-        if (n == 1) {
-            seq.add(move);
-        } else {
-            hanoi(n - 1, from, via, to);
-            seq.add(move);
-            hanoi(n - 1, via, to, from);
+            List<int[]> result = new ArrayList<>();
+            result.addAll(hanoi(n - 1, from, empty));
+            result.addAll(hanoi(1, from, to));
+            result.addAll(hanoi(n - 1, empty, to));
+            return result;
         }
-    }
 }
