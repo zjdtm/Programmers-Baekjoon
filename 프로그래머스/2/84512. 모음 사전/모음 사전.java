@@ -1,27 +1,23 @@
 import java.util.*;
 
 class Solution {
-    static List<String> list;
-    static String[] words = {"A", "E", "I", "O", "U"};
+    private static final char[] CHARS = "AEIOU".toCharArray();
+        
     public int solution(String word) {
-        int answer = 0;
-        list = new ArrayList<>();
-        dfs("", 0);
-        int size = list.size();
-        for (int i = 0; i < size; i++) {
-            if (list.get(i).equals(word)) {
-                answer = i;
-                break;
-            }
-        }
-        return answer;
+        List<String> words = new ArrayList<>();
+        generate("", words);
+        return words.indexOf(word);
     }
 
-    static void dfs(String str, int len) {
-        list.add(str);
-        if (len == 5) return;
-        for (int i = 0; i < 5; i++) {
-            dfs(str + words[i], len + 1);
+    private void generate(String word, List<String> words) {
+        words.add(word);
+
+        if (word.length() == 5) {
+            return;
+        }
+
+        for (char c : CHARS) {
+            generate(word + c, words);
         }
     }
 }
