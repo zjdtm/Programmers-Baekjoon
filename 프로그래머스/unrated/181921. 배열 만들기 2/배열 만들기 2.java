@@ -1,31 +1,15 @@
-import java.util.*;
+import java.util.stream.IntStream;
 
 class Solution {
     public int[] solution(int l, int r) {
-        ArrayList<Integer> arr = new ArrayList<>();
-
-        for (int i = l; i <= r; i++) {
-            char[] chars = String.valueOf(i).toCharArray();
-            int count = 0;
-            for (char ch : chars) {
-                if (ch == 48 || ch == 53) {
-                    count++;
+        int[] answer = IntStream.rangeClosed(l, r).filter(i -> {
+                while (i > 0) {
+                    if (i % 5 != 0) return false;
+                    i /= 10;
                 }
-            }
-            if (chars.length == count) {
-                arr.add(i);
-            }
-        }
+                return true;
+            }).toArray();
 
-        int[] answer = new int[arr.size()];
-        if (arr.isEmpty()) {
-            return new int[]{-1};
-        }
-        
-        for (int i = 0; i < answer.length; i++) {
-            answer[i] = arr.get(i);
-        }
-
-        return answer;
+            return answer.length == 0 ? new int[]{-1} : answer;
     }
 }
