@@ -1,6 +1,7 @@
 import java.util.*;
+
 class Solution {
-    private final int[][] mem = new int[501][501];
+    private int[][] mem = new int[501][501];
     private int max (int x, int y, int[][] triangle) {
         if (y == triangle.length) return 0;
         if (mem[x][y] != -1) return mem[x][y];
