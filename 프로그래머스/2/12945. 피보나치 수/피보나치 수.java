@@ -1,18 +1,20 @@
+import java.util.*;
 class Solution {
-    public int solution(int n) {
-        int answer[] = new int[n + 1];
+    private final int[] mem = new int[100001];
+    
+    private int fibonacci(int n) {
+        if (mem[n] != -1) return mem[n];
 
+        if (n == 0 || n == 1) return n;
+
+        return mem[n] = (fibonacci(n - 2) + fibonacci(n - 1)) % 1234567;
+    }
+    
+    public int solution (int n) {
+        Arrays.fill(mem, -1);
         for (int i = 0; i <= n; i++) {
-            if (i == 0){
-                answer[i] = 0;
-            } else if (i == 1) {
-                answer[i] = 1;
-            } else {
-                int sum = answer[i - 2] + answer[i - 1];
-                answer[i] = sum % 1234567;
-            }
+            fibonacci(n);
         }
-
-        return answer[n];
+        return fibonacci(n);
     }
 }
