@@ -1,34 +1,28 @@
 import java.util.*;
 class Solution {
     public int solution(int n, int[] lost, int[] reserve) {
-        int answer = n - lost.length;
-        int idx = 0;
-        
-        Arrays.sort(lost);
-        Arrays.sort(reserve);
+        HashSet<Integer> resSet = new HashSet<>();
+        HashSet<Integer> lostSet = new HashSet<>();
 
-        for (int i = 0; i < lost.length; i++) {
-            for (int j = 0; j < reserve.length; j++) {
-                if (lost[i] == reserve[j]) {
-                    answer++;
-                    lost[i] = -1;
-                    reserve[j] = -1;
-                    break;
-                }
-            }
+        for (int r : reserve) {
+            resSet.add(r);
         }
-        
-        for (int i = 0; i < lost.length; i++) {
-            for (int j = 0; j < reserve.length; j++) {
-                if (lost[i] - 1 == reserve[j] ||
-                   lost[i] + 1 == reserve[j]) {
-                    answer++;
-                    reserve[j] = -1;
-                    break;
-                }
+        for (int l : lost) {
+            if (resSet.contains(l)) {
+                resSet.remove(l);
+            } else {
+                lostSet.add(l);
             }
         }
 
-        return answer;
+        for (int r : resSet) {
+            if (lostSet.contains(r - 1)) {
+                lostSet.remove(r - 1);
+            } else if (lostSet.contains(r + 1)) {
+                lostSet.remove(r + 1);
+            }
+        }
+
+        return n - lostSet.size();
     }
 }
