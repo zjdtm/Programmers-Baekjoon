@@ -1,21 +1,22 @@
+import java.util.*;
 class Solution {
     public int[] solution(String s) {
-        int[] answer = new int[2];
-            int changeBinary = 0;
-            int zeroCount = 0;
+        StringBuilder sb;
+        int count = 0;
+        int deleteZeroCount = 0;
 
-            while (!s.equals("1")) {
-                String replaced = s.replaceAll("0", "");
+        while(!s.equals("1")) {
+            sb = new StringBuilder();
+            count++;
 
-                zeroCount += s.length() - replaced.length();
-                int replacedLength = replaced.length();
-                s = Integer.toString(replacedLength, 2);
-                changeBinary++;
+            for (char c : s.toCharArray()){
+                if (c == 48) deleteZeroCount++;
+                else sb.append(c);
             }
 
-            answer[0] = changeBinary;
-            answer[1] = zeroCount;
+            s = Integer.toString(sb.length(), 2);
+        }
 
-            return answer;
+        return new int[]{count, deleteZeroCount};
     }
 }
