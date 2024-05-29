@@ -1,11 +1,16 @@
+import java.util.*;
+
 class Solution {
     public int solution(String s) {
-        String[] alphabat = new String[]{"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
-
-            for (int i = 0; i < alphabat.length; i++) {
-                s = s.replace(alphabat[i], Integer.toString(i));
-            }
-
-            return Integer.parseInt(s);
+        StringBuilder sb = new StringBuilder();
+        String[] words = {"zero", "one", "two", "three", "four",
+                         "five", "six", "seven", "eight", "nine"};
+        
+        for (int i = 0; i < words.length; i++) {
+            if (s.contains(words[i])) 
+                s = s.replaceAll(words[i], i + "");
+        }
+        
+        return Integer.parseInt(s);
     }
 }
