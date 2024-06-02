@@ -1,36 +1,20 @@
-import java.util.stream.IntStream;
-
+import java.util.ArrayList;
 class Solution {
-    private static final int[][] RULES = {
-            { 1, 2, 3, 4, 5 },
-            { 2, 1, 2, 3, 2, 4, 2, 5 },
-            { 3, 3, 1, 1, 2, 2, 4, 4, 5, 5 }
-    };
-    
-    private int getPicked(int person, int problem) {
-        int[] rule = RULES[person];
-        return rule[problem % rule.length];
-    }
-    
-    public int[] solution(int[] answers) {    
-        int[] corrects = new int[3];
-        int[] result = new int[3];
-        int max = 0;
-
-        for (int problem = 0; problem < answers.length; problem++) {
-            int answer = answers[problem];
-            for (int person = 0; person < 3; person++) {
-                if (answer == getPicked(person, problem)) {
-                    if (++corrects[person] > max)
-                        max = corrects[person];
-                }
-            }
+    public int[] solution(int[] answer) {
+        int[] a = {1, 2, 3, 4, 5};
+        int[] b = {2, 1, 2, 3, 2, 4, 2, 5};
+        int[] c = {3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
+        int[] score = new int[3];
+        for(int i=0; i<answer.length; i++) {
+            if(answer[i] == a[i%a.length]) {score[0]++;}
+            if(answer[i] == b[i%b.length]) {score[1]++;}
+            if(answer[i] == c[i%c.length]) {score[2]++;}
         }
-
-        final int maxCorrects = max;
-        return IntStream.range(0, 3)
-                .filter(i -> corrects[i] == maxCorrects)
-                .map(i -> i + 1)
-                .toArray();
+        int maxScore = Math.max(score[0], Math.max(score[1], score[2]));
+        ArrayList<Integer> list = new ArrayList<>();
+        if(maxScore == score[0]) {list.add(1);}
+        if(maxScore == score[1]) {list.add(2);}
+        if(maxScore == score[2]) {list.add(3);}
+        return list.stream().mapToInt(i->i.intValue()).toArray();
     }
 }
