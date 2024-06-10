@@ -1,9 +1,9 @@
 import java.util.*;
 
 class Solution {
-    private boolean isValid(int[] citations, int h) {
-            int index = citations.length - h;
-            return citations[index] >= h;
+    private boolean isValid(int[] citation, int h) {
+        int index = citation.length - h;
+        return citation[index] >= h;
     }
 
     public int solution(int[] citations) {
