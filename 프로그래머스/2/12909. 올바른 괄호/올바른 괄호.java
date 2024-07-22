@@ -1,22 +1,10 @@
-import java.util.*;
 class Solution {
     boolean solution(String s) {
-        Stack<Character> stack = new Stack<>();
-            
-        for (char c : s.toCharArray()) {
-            switch (c) {
-                case '(' : {
-                    stack.push(c);
-                    break;
-                }
-                case ')' : {
-                    if (stack.isEmpty()) return false;
-                    stack.pop();
-                    break;
-                }
-            }
-        }
+        boolean answer = true;
 
-        return stack.isEmpty();
+        // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
+        System.out.println("Hello Java");
+
+        return answer;
     }
 }
